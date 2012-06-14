@@ -23,7 +23,7 @@ target_link_libraries(${PROJECT_NAME} ${Boost_THREAD_LIBRARY})
 install(TARGETS ${PROJECT_NAME}
   DESTINATION lib/)
 
-install(DIRECTORY include
+install(DIRECTORY include/
   DESTINATION include
   FILES_MATCHING PATTERN "*.h")
 
