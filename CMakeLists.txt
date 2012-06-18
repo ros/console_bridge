@@ -16,6 +16,7 @@ if(MSVC)
 endif(MSVC)
 
 include_directories(include)
+include_directories(${Boost_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} SHARED src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_THREAD_LIBRARY})
