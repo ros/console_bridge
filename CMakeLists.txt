@@ -17,6 +17,7 @@ endif(MSVC)
 
 include_directories(include)
 include_directories(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIRS})
 
 add_library(${PROJECT_NAME} SHARED src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_THREAD_LIBRARY})
@@ -28,8 +29,13 @@ install(DIRECTORY include/
   DESTINATION include
   FILES_MATCHING PATTERN "*.h")
 
+set(PKG_NAME ${PROJECT_NAME})
+set(PKG_LIBRARIES ${PROJECT_NAME})
+set(cmake_conf_file "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}-config.cmake")
+configure_file("${cmake_conf_file}.in" "${cmake_conf_file}" @ONLY)
+install(FILES ${cmake_conf_file} DESTINATION share/${PROJECT_NAME}/cmake/ COMPONENT cmake)
+
 if (NOT MSVC)
-  set(PKG_NAME "console_bridge")
   set(PKG_DESC "Console Bridge")
   set(PKG_OMPL_LIBS "-l${PROJECT_NAME}")
   set(pkg_conf_file "${CMAKE_CURRENT_SOURCE_DIR}/console_bridge.pc")
