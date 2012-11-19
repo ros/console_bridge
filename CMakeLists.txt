@@ -37,7 +37,7 @@ install(FILES ${cmake_conf_file} DESTINATION share/${PROJECT_NAME}/cmake/ COMPON
 
 if (NOT MSVC)
   set(PKG_DESC "Console Bridge")
-  set(PKG_OMPL_LIBS "-l${PROJECT_NAME}")
+  set(PKG_CB_LIBS "-l${PROJECT_NAME}")
   set(pkg_conf_file "${CMAKE_CURRENT_SOURCE_DIR}/console_bridge.pc")
   configure_file("${pkg_conf_file}.in" "${pkg_conf_file}" @ONLY)
   install(FILES ${pkg_conf_file} DESTINATION lib/pkgconfig/ COMPONENT pkgconfig)
