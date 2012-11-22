@@ -48,7 +48,7 @@ struct DefaultOutputHandler
     {
         output_handler_ = static_cast<console_bridge::OutputHandler*>(&std_output_handler_);
         previous_output_handler_ = output_handler_;
-        logLevel_ = console_bridge::LOG_DEBUG;
+        logLevel_ = console_bridge::LOG_WARN;
     }
 
     console_bridge::OutputHandlerSTD std_output_handler_;
