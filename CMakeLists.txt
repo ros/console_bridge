@@ -5,7 +5,7 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-find_package(Boost COMPONENTS thread REQUIRED)
+find_package(Boost COMPONENTS system thread REQUIRED)
 
 if(MSVC OR MSVC90 OR MSVC10)
   set(MSVC ON)
@@ -20,7 +20,7 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 add_library(${PROJECT_NAME} SHARED src/console.cpp)
-target_link_libraries(${PROJECT_NAME} ${Boost_THREAD_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 install(TARGETS ${PROJECT_NAME}
   DESTINATION lib/)
