@@ -42,3 +42,7 @@ if (NOT MSVC)
   configure_file("${pkg_conf_file}.in" "${pkg_conf_file}" @ONLY)
   install(FILES ${pkg_conf_file} DESTINATION lib/pkgconfig/ COMPONENT pkgconfig)
 endif()
+
+# Install catkin package.xml
+install(FILES package.xml DESTINATION share/console_bridge)
+
