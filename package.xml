@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>console_bridge</name>
-  <version>0.1.3</version>
+  <version>0.2.0</version>
   <description>Lightweight tool for forwarding output from libraries to other logging systems.</description>
   <maintainer email="isucan@willowgarage.com">Ioan Sucan</maintainer>
 
