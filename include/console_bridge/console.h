@@ -61,13 +61,13 @@
 
     \}
 */
-#define logError(fmt, ...)  console_bridge::log(__FILE__, __LINE__, console_bridge::LOG_ERROR, fmt, ##__VA_ARGS__)
+#define logError(fmt, ...)  console_bridge::log(__FILE__, __LINE__, console_bridge::CONSOLE_BRIDGE_LOG_ERROR, fmt, ##__VA_ARGS__)
 
-#define logWarn(fmt, ...)   console_bridge::log(__FILE__, __LINE__, console_bridge::LOG_WARN,  fmt, ##__VA_ARGS__)
+#define logWarn(fmt, ...)   console_bridge::log(__FILE__, __LINE__, console_bridge::CONSOLE_BRIDGE_LOG_WARN,  fmt, ##__VA_ARGS__)
 
-#define logInform(fmt, ...) console_bridge::log(__FILE__, __LINE__, console_bridge::LOG_INFO,  fmt, ##__VA_ARGS__)
+#define logInform(fmt, ...) console_bridge::log(__FILE__, __LINE__, console_bridge::CONSOLE_BRIDGE_LOG_INFO,  fmt, ##__VA_ARGS__)
 
-#define logDebug(fmt, ...)  console_bridge::log(__FILE__, __LINE__, console_bridge::LOG_DEBUG, fmt, ##__VA_ARGS__)
+#define logDebug(fmt, ...)  console_bridge::log(__FILE__, __LINE__, console_bridge::CONSOLE_BRIDGE_LOG_DEBUG, fmt, ##__VA_ARGS__)
 
 
 /** \brief Message namespace. This contains classes needed to
@@ -78,11 +78,11 @@ namespace console_bridge
 /** \brief The set of priorities for message logging */
 enum LogLevel
   {
-    LOG_DEBUG = 0,
-    LOG_INFO,
-    LOG_WARN,
-    LOG_ERROR,
-    LOG_NONE
+    CONSOLE_BRIDGE_LOG_DEBUG = 0,
+    CONSOLE_BRIDGE_LOG_INFO,
+    CONSOLE_BRIDGE_LOG_WARN,
+    CONSOLE_BRIDGE_LOG_ERROR,
+    CONSOLE_BRIDGE_LOG_NONE
   };
 
 /** \brief Generic class to handle output from a piece of

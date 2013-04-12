@@ -48,7 +48,7 @@ struct DefaultOutputHandler
     {
         output_handler_ = static_cast<console_bridge::OutputHandler*>(&std_output_handler_);
         previous_output_handler_ = output_handler_;
-        logLevel_ = console_bridge::LOG_WARN;
+        logLevel_ = console_bridge::CONSOLE_BRIDGE_LOG_WARN;
     }
 
     console_bridge::OutputHandlerSTD std_output_handler_;
@@ -133,7 +133,7 @@ static const char* LogLevelString[4] = {"Debug:   ", "Info:    ", "Warning: ", "
 
 void console_bridge::OutputHandlerSTD::log(const std::string &text, LogLevel level, const char *filename, int line)
 {
-    if (level >= LOG_WARN)
+    if (level >= CONSOLE_BRIDGE_LOG_WARN)
     {
         std::cerr << LogLevelString[level] << text << std::endl;
         std::cerr << "         at line " << line << " in " << filename << std::endl;
@@ -165,7 +165,7 @@ void console_bridge::OutputHandlerFile::log(const std::string &text, LogLevel le
     if (file_)
     {
         fprintf(file_, "%s%s\n", LogLevelString[level], text.c_str());
-        if(level >= LOG_WARN)
+        if(level >= CONSOLE_BRIDGE_LOG_WARN)
             fprintf(file_, "         at line %d in %s\n", line, filename);
         fflush(file_);
     }
