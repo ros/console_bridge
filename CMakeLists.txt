@@ -19,6 +19,10 @@ include_directories(include)
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
+if(NOT DEFINED BUILD_SHARED_LIBS)
+  option(BUILD_SHARED_LIBS "Build dynamically-linked binaries" ON)
+endif()
+
 add_library(${PROJECT_NAME} src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
@@ -42,7 +46,3 @@ if (NOT MSVC)
   configure_file("${pkg_conf_file}.in" "${pkg_conf_file}" @ONLY)
   install(FILES ${pkg_conf_file} DESTINATION lib/pkgconfig/ COMPONENT pkgconfig)
 endif()
-
-# Install catkin package.xml
-install(FILES package.xml DESTINATION share/console_bridge)
-
