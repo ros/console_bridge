@@ -27,6 +27,7 @@ endif()
 
 add_library(${PROJECT_NAME} src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 0.2)
 
 install(TARGETS ${PROJECT_NAME}
   DESTINATION ${CMAKE_INSTALL_LIBDIR})
