@@ -50,3 +50,7 @@ if (NOT MSVC)
   install(FILES ${pkg_conf_file}
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/ COMPONENT pkgconfig)
 endif()
+
+SET_DIRECTORY_PROPERTIES(PROPERTIES
+  ADDITIONAL_MAKE_CLEAN_FILES console_bridge-config.cmake
+  ADDITIONAL_MAKE_CLEAN_FILES console_bridge.pc)
