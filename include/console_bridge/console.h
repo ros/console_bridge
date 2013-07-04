@@ -39,6 +39,8 @@
 
 #include <string>
 
+#include "exportdecl.h"
+
 /** \file console.h
     \defgroup logging Logging Macros
     \{
@@ -76,7 +78,7 @@
 namespace console_bridge
 {
 /** \brief The set of priorities for message logging */
-enum LogLevel
+enum CONSOLE_BRIDGE_DLLAPI LogLevel
   {
     CONSOLE_BRIDGE_LOG_DEBUG = 0,
     CONSOLE_BRIDGE_LOG_INFO,
@@ -92,7 +94,7 @@ enum LogLevel
     ways, an implementation of this class needs to be
     provided. This instance can be set with the useOutputHandler
     function. */
-class OutputHandler
+class CONSOLE_BRIDGE_DLLAPI OutputHandler
 {
 public:
   
@@ -111,7 +113,7 @@ public:
 
 /** \brief Default implementation of OutputHandler. This sends
     the information to the console. */
-class OutputHandlerSTD : public OutputHandler
+class CONSOLE_BRIDGE_DLLAPI OutputHandlerSTD : public OutputHandler
 {
 public:
   
@@ -124,7 +126,7 @@ public:
 };
 
 /** \brief Implementation of OutputHandler that saves messages in a file. */
-class OutputHandlerFile : public OutputHandler
+class CONSOLE_BRIDGE_DLLAPI OutputHandlerFile : public OutputHandler
 {
 public:
   
@@ -143,29 +145,29 @@ private:
 };
 
 /** \brief This function instructs ompl that no messages should be outputted. Equivalent to useOutputHandler(NULL) */
-void noOutputHandler(void);
+CONSOLE_BRIDGE_DLLAPI void noOutputHandler(void);
 
 /** \brief Restore the output handler that was previously in use (if any) */
-void restorePreviousOutputHandler(void);
+CONSOLE_BRIDGE_DLLAPI void restorePreviousOutputHandler(void);
 
 /** \brief Specify the instance of the OutputHandler to use. By default, this is OutputHandlerSTD */
-void useOutputHandler(OutputHandler *oh);
+CONSOLE_BRIDGE_DLLAPI void useOutputHandler(OutputHandler *oh);
 
 /** \brief Get the instance of the OutputHandler currently used. This is NULL in case there is no output handler. */
-OutputHandler* getOutputHandler(void);
+CONSOLE_BRIDGE_DLLAPI OutputHandler* getOutputHandler(void);
 
 /** \brief Set the minimum level of logging data to output.  Messages
     with lower logging levels will not be recorded. */
-void setLogLevel(LogLevel level);
+CONSOLE_BRIDGE_DLLAPI void setLogLevel(LogLevel level);
 
 /** \brief Retrieve the current level of logging data.  Messages
     with lower logging levels will not be recorded. */
-LogLevel getLogLevel(void);
+CONSOLE_BRIDGE_DLLAPI LogLevel getLogLevel(void);
 
 /** \brief Root level logging function.  This should not be invoked directly,
     but rather used via a \ref logging "logging macro".  Formats the message
     string given the arguments and forwards the string to the output handler */
-void log(const char *file, int line, LogLevel level, const char* m, ...);
+CONSOLE_BRIDGE_DLLAPI void log(const char *file, int line, LogLevel level, const char* m, ...);
 }
 
 
