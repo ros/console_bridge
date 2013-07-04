@@ -46,19 +46,19 @@ install(DIRECTORY include/
 set(PKG_NAME ${PROJECT_NAME})
 set(PKG_LIBRARIES ${PROJECT_NAME})
 set(cmake_conf_file "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}-config.cmake")
-configure_file("${cmake_conf_file}.in" "${cmake_conf_file}" @ONLY)
-install(FILES ${cmake_conf_file}
+configure_file("${cmake_conf_file}.in" "${CMAKE_BINARY_DIR}/${cmake_conf_file}" @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/${cmake_conf_file}
   DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake/ COMPONENT cmake)
 
 if (NOT MSVC)
   set(PKG_DESC "Console Bridge")
   set(PKG_CB_LIBS "-l${PROJECT_NAME}")
   set(pkg_conf_file "${CMAKE_CURRENT_SOURCE_DIR}/console_bridge.pc")
-  configure_file("${pkg_conf_file}.in" "${pkg_conf_file}" @ONLY)
-  install(FILES ${pkg_conf_file}
+  configure_file("${pkg_conf_file}.in" "${CMAKE_BINARY_DIR}/${pkg_conf_file}" @ONLY)
+  install(FILES ${CMAKE_BINARY_DIR}/${pkg_conf_file}
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/ COMPONENT pkgconfig)
 endif()
 
 SET_DIRECTORY_PROPERTIES(PROPERTIES
-  ADDITIONAL_MAKE_CLEAN_FILES console_bridge-config.cmake
-  ADDITIONAL_MAKE_CLEAN_FILES console_bridge.pc)
+  ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_BINARY_DIR}/console_bridge-config.cmake
+  ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_BINARY_DIR}/console_bridge.pc)
