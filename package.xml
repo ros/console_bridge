@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>console_bridge</name>
-  <version>:{version}</version>
+  <version>0.2.8</version>
   <description>This package has been released upstream. This is just a wrapper for backwards compatibility you should depend on libconsole-bridge-dev directly.</description>
   <maintainer email="isucan@google.com">Ioan Sucan</maintainer>
 
