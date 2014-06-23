@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>console_bridge</name>
+  <version>:{version}</version>
+  <description>This package has been released upstream. This is just a wrapper for backwards compatibility you should depend on libconsole-bridge-dev directly.</description>
+  <maintainer email="isucan@google.com">Ioan Sucan</maintainer>
+
+  <license>BSD</license>
+  <url>https://github.com/ros/console_bridge</url>
+  <author email="lunaryan@gmail.com">Ryan Luna</author>
+  <author email="isucan@google.com">Ioan Sucan</author>
+
+  <buildtool_depend>cmake</buildtool_depend>
+
+  <run_depend>libconsole-bridge-dev</run_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+
+</package>
