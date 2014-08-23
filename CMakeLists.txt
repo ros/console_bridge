@@ -30,21 +30,33 @@ if(NOT DEFINED BUILD_SHARED_LIBS)
   option(BUILD_SHARED_LIBS "Build dynamically-linked binaries" ON)
 endif()
 
+option(USE_GNU_INSTALL_DIRS "Use GNU Install Directories when installing" OFF)
+
+if (USE_GNU_INSTALL_DIRS)
+  include(GNUInstallDirs)
+else()
+  set(CMAKE_INSTALL_DATAROOTDIR "share")
+  set(CMAKE_INSTALL_INCLUDEDIR "include")
+  set(CMAKE_INSTALL_LIBDIR "lib")
+endif()
+
 add_library(${PROJECT_NAME} src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 install(TARGETS ${PROJECT_NAME}
-  DESTINATION lib/)
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install(DIRECTORY include/
-  DESTINATION include
-  FILES_MATCHING PATTERN "*.h")
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} 
+  FILES_MATCHING PATTERN "*.h") 
 
 set(PKG_NAME ${PROJECT_NAME})
 set(PKG_LIBRARIES ${PROJECT_NAME})
 set(cmake_conf_file "${PROJECT_NAME}-config.cmake")
 configure_file("${cmake_conf_file}.in" "${CMAKE_BINARY_DIR}/${cmake_conf_file}" @ONLY)
-install(FILES "${CMAKE_BINARY_DIR}/${cmake_conf_file}" DESTINATION share/${PROJECT_NAME}/cmake/ COMPONENT cmake)
+install(FILES "${CMAKE_BINARY_DIR}/${cmake_conf_file}" 
+  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake/ 
+  COMPONENT cmake) 
 
 if (NOT MSVC)
   set(PKG_DESC "Console Bridge")
@@ -52,7 +64,7 @@ if (NOT MSVC)
   set(pkg_conf_file "console_bridge.pc")
   configure_file("${pkg_conf_file}.in" "${CMAKE_BINARY_DIR}/${pkg_conf_file}" @ONLY)
   install(FILES "${CMAKE_BINARY_DIR}/${pkg_conf_file}"
-    DESTINATION lib/pkgconfig/ COMPONENT pkgconfig)
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/ COMPONENT pkgconfig)
 endif()
 
 SET_DIRECTORY_PROPERTIES(PROPERTIES
