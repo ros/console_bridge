@@ -35,10 +35,12 @@
 /* Author: Ryan Luna, Ioan Sucan */
 
 #include "console_bridge/console.h"
-#include <boost/thread/mutex.hpp>
-#include <iostream>
+
 #include <cstdio>
 #include <cstdarg>
+
+#include <iostream>
+#include <mutex>
 
 /// @cond IGNORE
 
@@ -55,7 +57,7 @@ struct DefaultOutputHandler
     console_bridge::OutputHandler   *output_handler_;
     console_bridge::OutputHandler   *previous_output_handler_;
     console_bridge::LogLevel         logLevel_;
-    boost::mutex                     lock_; // it is likely the outputhandler does some I/O, so we serialize it
+    std::mutex                       lock_; // it is likely the outputhandler does some I/O, so we serialize it
 };
 
 // we use this function because we want to handle static initialization correctly
@@ -70,7 +72,7 @@ static DefaultOutputHandler* getDOH(void)
 
 #define USE_DOH                                                                \
     DefaultOutputHandler *doh = getDOH();                                      \
-    boost::mutex::scoped_lock slock(doh->lock_)
+    std::lock_guard<std::mutex> lock_guard(doh->lock_)
 
 #define MAX_BUFFER_SIZE 1024
 
