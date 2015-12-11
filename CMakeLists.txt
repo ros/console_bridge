@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 project(console_bridge)
 
+set (CONSOLE_BRIDGE_MAJOR_VERSION 0)
+set (CONSOLE_BRIDGE_MINOR_VERSION 2)
+set (CONSOLE_BRIDGE_PATCH_VERSION 8)
+
+set (CONSOLE_BRIDGE_VERSION ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MINOR_VERSION}.${CONSOLE_BRIDGE_PATCH_VERSION})
+message (STATUS "${PROJECT_NAME} version ${CONSOLE_BRIDGE_VERSION}")
+
+include(GNUInstallDirs)
+
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
@@ -54,9 +63,26 @@ set(PKG_NAME ${PROJECT_NAME})
 set(PKG_LIBRARIES ${PROJECT_NAME})
 set(cmake_conf_file "${PROJECT_NAME}-config.cmake")
 configure_file("${cmake_conf_file}.in" "${CMAKE_BINARY_DIR}/${cmake_conf_file}" @ONLY)
-install(FILES "${CMAKE_BINARY_DIR}/${cmake_conf_file}" 
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake/ 
-  COMPONENT cmake) 
+set(cmake_conf_version_file "${PROJECT_NAME}-config-version.cmake")
+# Use write_basic_package_version_file to generate a ConfigVersion file that
+# allow users of gazebo to specify the API or version to depend on
+# TODO: keep this instruction until deprecate Ubuntu/Precise and update with
+# https://github.com/Kitware/CMake/blob/v2.8.8/Modules/CMakePackageConfigHelpers.cmake
+include(WriteBasicConfigVersionFile)
+write_basic_config_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/${cmake_conf_version_file}
+  VERSION "${CONSOLE_BRIDGE_VERSION}"
+  COMPATIBILITY SameMajorVersion)
+
+if(WIN32 AND NOT CYGWIN)
+  set(CMAKE_CONFIG_INSTALL_DIR CMake)
+else()
+  set(CMAKE_CONFIG_INSTALL_DIR ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake/)
+endif()
+install(FILES
+        "${CMAKE_BINARY_DIR}/${cmake_conf_file}"
+        "${CMAKE_BINARY_DIR}/${cmake_conf_version_file}"
+  DESTINATION ${CMAKE_CONFIG_INSTALL_DIR} COMPONENT cmake)
 
 if (NOT MSVC)
   set(PKG_DESC "Console Bridge")
