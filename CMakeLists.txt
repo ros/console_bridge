@@ -45,10 +45,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION
                ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MINOR_VERSION})
 
 install(TARGETS ${PROJECT_NAME}
-  DESTINATION lib/)
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 install(DIRECTORY include/
-  DESTINATION include
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   FILES_MATCHING PATTERN "*.h")
 
 set(PKG_NAME ${PROJECT_NAME})
@@ -69,7 +69,7 @@ write_basic_config_version_file(
 if(WIN32 AND NOT CYGWIN)
   set(CMAKE_CONFIG_INSTALL_DIR CMake)
 else()
-  set(CMAKE_CONFIG_INSTALL_DIR ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake/)
+  set(CMAKE_CONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/cmake/)
 endif()
 install(FILES
         "${CMAKE_BINARY_DIR}/${cmake_conf_file}"
@@ -82,7 +82,7 @@ if (NOT MSVC)
   set(pkg_conf_file "console_bridge.pc")
   configure_file("${pkg_conf_file}.in" "${CMAKE_BINARY_DIR}/${pkg_conf_file}" @ONLY)
   install(FILES "${CMAKE_BINARY_DIR}/${pkg_conf_file}"
-    DESTINATION lib/pkgconfig/ COMPONENT pkgconfig)
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/ COMPONENT pkgconfig)
 endif()
 
 SET_DIRECTORY_PROPERTIES(PROPERTIES
