@@ -51,6 +51,8 @@ endif()
 
 add_library(${PROJECT_NAME} src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION
+               ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MINOR_VERSION})
 
 install(TARGETS ${PROJECT_NAME}
   DESTINATION ${CMAKE_INSTALL_LIBDIR})
