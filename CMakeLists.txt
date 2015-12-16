@@ -39,16 +39,6 @@ if(NOT DEFINED BUILD_SHARED_LIBS)
   option(BUILD_SHARED_LIBS "Build dynamically-linked binaries" ON)
 endif()
 
-option(USE_GNU_INSTALL_DIRS "Use GNU Install Directories when installing" OFF)
-
-if (USE_GNU_INSTALL_DIRS)
-  include(GNUInstallDirs)
-else()
-  set(CMAKE_INSTALL_DATAROOTDIR "share")
-  set(CMAKE_INSTALL_INCLUDEDIR "include")
-  set(CMAKE_INSTALL_LIBDIR "lib")
-endif()
-
 add_library(${PROJECT_NAME} src/console.cpp)
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION
