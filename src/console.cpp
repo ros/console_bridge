@@ -103,6 +103,30 @@ console_bridge::OutputHandler* console_bridge::getOutputHandler(void)
     return getDOH()->output_handler_;
 }
 
+void console_bridge::log_deprecated(const char *file, int line,
+                                    LogLevel level, const char* m, ...)
+{
+    /*
+     * Workaround: see bug ros/console 30
+     * Exact copy of console_bridge::log, please remove it once the
+     * deprecation time expires.
+     */
+    console_bridge_deprecated();
+
+    USE_DOH;
+    if (doh->output_handler_ && level >= doh->logLevel_)
+    {
+        va_list __ap;
+        va_start(__ap, m);
+        char buf[MAX_BUFFER_SIZE];
+        vsnprintf(buf, sizeof(buf), m, __ap);
+        va_end(__ap);
+        buf[MAX_BUFFER_SIZE - 1] = '\0';
+
+        doh->output_handler_->log(buf, level, file, line);
+    }
+}
+
 void console_bridge::log(const char *file, int line, LogLevel level, const char* m, ...)
 {
     USE_DOH;
