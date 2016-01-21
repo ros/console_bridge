@@ -111,8 +111,6 @@ void console_bridge::log_deprecated(const char *file, int line,
      * Exact copy of console_bridge::log, please remove it once the
      * deprecation time expires.
      */
-    console_bridge_deprecated();
-
     USE_DOH;
     if (doh->output_handler_ && level >= doh->logLevel_)
     {
