@@ -172,8 +172,13 @@ void console_bridge::OutputHandlerSTD::log(const std::string &text, LogLevel lev
 
 console_bridge::OutputHandlerFile::OutputHandlerFile(const char *filename) : OutputHandler()
 {
+#ifdef _MSC_VER
+    errno_t err = fopen_s(&file_, filename, "a");
+    if (err != 0 || !file_)
+#else
     file_ = fopen(filename, "a");
     if (!file_)
+#endif
         std::cerr << "Unable to open log file: '" << filename << "'" << std::endl;
 }
 
