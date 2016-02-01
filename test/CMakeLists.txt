@@ -13,8 +13,6 @@ link_directories(
 add_library(gtest STATIC gtest/src/gtest-all.cc)
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest)
-set(GTEST_LIBRARY "${PROJECT_BINARY_DIR}/test/libgtest.a")
-set(GTEST_MAIN_LIBRARY "${PROJECT_BINARY_DIR}/test/libgtest_main.a")
 
 execute_process(COMMAND cmake -E remove_directory ${CMAKE_BINARY_DIR}/test_results)
 execute_process(COMMAND cmake -E make_directory ${CMAKE_BINARY_DIR}/test_results)
@@ -23,8 +21,10 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(tests
      console_TEST.cc)
 
-set_source_files_properties(console_TEST.cc PROPERTIES COMPILE_FLAGS
-                               -Wno-deprecated-declarations)
+if (NOT MSVC)
+  set_source_files_properties(console_TEST.cc PROPERTIES COMPILE_FLAGS
+                                 -Wno-deprecated-declarations)
+endif()
 
 #################################################
 # Build all the tests
@@ -38,10 +38,12 @@ foreach(GTEST_SOURCE_file ${tests})
       gtest_main)
 
   target_link_libraries(${BINARY_NAME}
-     libgtest_main.a
-     libgtest.a
-     pthread
+     gtest_main
+     gtest
      console_bridge)
+  if (UNIX)
+    target_link_libraries(${BINARY_NAME} pthread)
+  endif()
 
    add_test(${BINARY_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}
        --gtest_output=xml:${CMAKE_BINARY_DIR}/test_results/${BINARY_NAME}.xml)
