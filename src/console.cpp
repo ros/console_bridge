@@ -117,7 +117,11 @@ void console_bridge::log_deprecated(const char *file, int line,
         va_list __ap;
         va_start(__ap, m);
         char buf[MAX_BUFFER_SIZE];
+#ifdef _MSC_VER
+        vsnprintf_s(buf, sizeof(buf), _TRUNCATE, m, __ap);
+#else
         vsnprintf(buf, sizeof(buf), m, __ap);
+#endif
         va_end(__ap);
         buf[MAX_BUFFER_SIZE - 1] = '\0';
 
@@ -133,7 +137,11 @@ void console_bridge::log(const char *file, int line, LogLevel level, const char*
         va_list __ap;
         va_start(__ap, m);
         char buf[MAX_BUFFER_SIZE];
+#ifdef _MSC_VER
+        vsnprintf_s(buf, sizeof(buf), _TRUNCATE, m, __ap);
+#else
         vsnprintf(buf, sizeof(buf), m, __ap);
+#endif
         va_end(__ap);
         buf[MAX_BUFFER_SIZE - 1] = '\0';
 
