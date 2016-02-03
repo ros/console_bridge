@@ -31,7 +31,9 @@
 
 #ifndef GTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_
 #define GTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_
+#ifndef _MSC_VER
 #pragma GCC system_header
+#endif
 
 // This header implements typed tests and type-parameterized tests.
 

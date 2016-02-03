@@ -94,7 +94,9 @@
 
 #ifndef GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
 #define GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
+#ifndef _MSC_VER
 #pragma GCC system_header
+#endif
 
 #include <ostream>  // NOLINT
 #include <sstream>
