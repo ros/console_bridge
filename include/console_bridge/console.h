@@ -39,16 +39,7 @@
 
 #include <string>
 
-#include "exportdecl.h"
-
-#ifdef __GNUC__
-#define CONSOLE_BRIDGE_DEPRECATED __attribute__ ((deprecated))
-#elif defined(_MSC_VER)
-#define CONSOLE_BRIDGE_DEPRECATED __declspec(deprecated)
-#else
-#pragma message("WARNING: You need to implement DEPRECATED for this compiler")
-#define CONSOLE_BRIDGE_DEPRECATED
-#endif
+#include "console_bridge_export.h"
 
 static inline void CONSOLE_BRIDGE_DEPRECATED console_bridge_deprecated() {}
 

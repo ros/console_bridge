@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.6)
 project(console_bridge)
 
 set (CONSOLE_BRIDGE_MAJOR_VERSION 0)
@@ -9,6 +9,7 @@ set (CONSOLE_BRIDGE_VERSION ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MIN
 message (STATUS "${PROJECT_NAME} version ${CONSOLE_BRIDGE_VERSION}")
 
 include(GNUInstallDirs)
+include(GenerateExportHeader)
 
 if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
@@ -33,7 +34,7 @@ if(MSVC OR MSVC90 OR MSVC10)
   set(MSVC ON)
 endif (MSVC OR MSVC90 OR MSVC10)
 
-include_directories(include)
+include_directories(include ${PROJECT_BINARY_DIR})
 
 if(NOT DEFINED BUILD_SHARED_LIBS)
   option(BUILD_SHARED_LIBS "Build dynamically-linked binaries" ON)
@@ -47,6 +48,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
 add_library(${PROJECT_NAME} src/console.cpp)
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION
                ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MINOR_VERSION})
+generate_export_header(${PROJECT_NAME}
+    EXPORT_MACRO_NAME CONSOLE_BRIDGE_DLLAPI)
 
 install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -57,6 +60,9 @@ install(TARGETS ${PROJECT_NAME}
 install(DIRECTORY include/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   FILES_MATCHING PATTERN "*.h")
+
+install(FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_export.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 set(PKG_NAME ${PROJECT_NAME})
 set(PKG_LIBRARIES ${PROJECT_NAME})
