@@ -25,7 +25,7 @@ endif()
 if(NOT WIN32)
   # Use c++11 compiler flag, since it's needed for console.cpp
   # It isn't in a header file, so it doesn't need to be exported
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -fPIC")
 endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${EXTRA_CMAKE_CXX_FLAGS}")
