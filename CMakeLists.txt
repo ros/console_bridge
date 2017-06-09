@@ -8,7 +8,16 @@ set (CONSOLE_BRIDGE_PATCH_VERSION 0)
 set (CONSOLE_BRIDGE_VERSION ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MINOR_VERSION}.${CONSOLE_BRIDGE_PATCH_VERSION})
 message (STATUS "${PROJECT_NAME} version ${CONSOLE_BRIDGE_VERSION}")
 
-include(GNUInstallDirs)
+option(USE_GNU_INSTALL_DIRS "Use GNU Install Directories when installing" OFF)
+
+if (USE_GNU_INSTALL_DIRS)
+  include(GNUInstallDirs)
+else()
+  set(CMAKE_INSTALL_DATAROOTDIR "share")
+  set(CMAKE_INSTALL_INCLUDEDIR "include")
+  set(CMAKE_INSTALL_LIBDIR "lib")
+endif()
+
 include(GenerateExportHeader)
 
 if (NOT CMAKE_BUILD_TYPE)
