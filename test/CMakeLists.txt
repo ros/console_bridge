@@ -44,7 +44,7 @@ foreach(GTEST_SOURCE_file ${tests})
      gtest_main
      gtest
      console_bridge)
-  if (UNIX)
+  if (UNIX AND NOT ANDROID)
     target_link_libraries(${BINARY_NAME} pthread)
   endif()
 
