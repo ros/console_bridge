@@ -21,14 +21,6 @@ include_directories(${GTEST_INCLUDE_DIRS})
 set(tests
      console_TEST.cc)
 
-if (MSVC)
-  set_source_files_properties(console_TEST.cc PROPERTIES COMPILE_FLAGS
-                                 /wd4996)
-else()
-  set_source_files_properties(console_TEST.cc PROPERTIES COMPILE_FLAGS
-                                 -Wno-deprecated-declarations)
-endif()
-
 #################################################
 # Build all the tests
 foreach(GTEST_SOURCE_file ${tests})
