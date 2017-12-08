@@ -7,10 +7,10 @@
 TEST(ConsoleTest, MacroExpansionTest_ItShouldCompile)
 {
   if (true)
-    logDebug("Testing Log");
+    CONSOLE_BRIDGE_logDebug("Testing Log");
 
   if (true)
-    logDebug("Testing Log");
+    CONSOLE_BRIDGE_logDebug("Testing Log");
   else
   {
       assert(true);
@@ -18,10 +18,10 @@ TEST(ConsoleTest, MacroExpansionTest_ItShouldCompile)
 
   if (true)
   {
-    logDebug("Testing Log");
+    CONSOLE_BRIDGE_logDebug("Testing Log");
   }
   else
   {
-    logDebug("Testing Log");
+    CONSOLE_BRIDGE_logDebug("Testing Log");
   }
 }
