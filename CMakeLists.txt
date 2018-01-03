@@ -15,6 +15,10 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+if(POLICY CMP0042)
+  cmake_policy(SET CMP0042 NEW)
+endif()
+
 # If compiler support symbol visibility, enable it.
 include(CheckCCompilerFlag)
 check_c_compiler_flag(-fvisibility=hidden HAS_VISIBILITY)
