@@ -97,6 +97,7 @@ write_basic_config_version_file(
 
 install(EXPORT ${PROJECT_NAME}-targets
   FILE ${PROJECT_NAME}-targets.cmake
+  NAMESPACE ${PROJECT_NAME}::
   DESTINATION ${CMAKE_CONFIG_INSTALL_DIR})
 install(FILES
         "${CMAKE_BINARY_DIR}/${cmake_conf_file}"
