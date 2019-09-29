@@ -1,9 +1,3 @@
-include_directories (
-  ${PROJECT_SOURCE_DIR}/test/gtest/include
-  ${PROJECT_SOURCE_DIR}/test/gtest
-  ${PROJECT_SOURCE_DIR}/test
-)
-
 link_directories(
   ${PROJECT_BINARY_DIR}/test
 )
@@ -11,12 +5,18 @@ link_directories(
 
 # Build gtest
 add_library(gtest STATIC gtest/src/gtest-all.cc)
+target_include_directories(gtest
+  PUBLIC
+  ${PROJECT_SOURCE_DIR}/test/gtest/include
+  ${PROJECT_SOURCE_DIR}/test/gtest
+  ${PROJECT_SOURCE_DIR}/test
+)
+
 add_library(gtest_main STATIC gtest/src/gtest_main.cc)
 target_link_libraries(gtest_main gtest)
 
 execute_process(COMMAND cmake -E remove_directory ${CMAKE_BINARY_DIR}/test_results)
 execute_process(COMMAND cmake -E make_directory ${CMAKE_BINARY_DIR}/test_results)
-include_directories(${GTEST_INCLUDE_DIRS})
 
 set(tests
      console_TEST.cc)
