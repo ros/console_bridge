@@ -22,15 +22,15 @@ All symbols in the installed headers are considered part of the public API.
 
 ### API Stability Policy [1.iv]
 
-`libconsole-bridge-dev` is used as an upstream package within the ROS2 ecosystem, and is pinned to a particular version to guarantee it will not break public API within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+`libconsole-bridge-dev` is used as an upstream package within the ROS2 ecosystem and has been API/ABI stable for several years. If a breaking change is introduced, ROS2 distributions will pin to a specific major version.
 
 ### ABI Stability Policy [1.v]
 
-`libconsole-bridge-dev` is used as an upstream package within the ROS2 ecosystem, and is pinned to a particular version to guarantee it will not break public ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+`libconsole-bridge-dev` is used as an upstream package within the ROS2 ecosystem and has been API/ABI stable for several years. If a breaking change is introduced, ROS2 distributions will pin to a specific major version.
 
 ### ABI and ABI Stability Within a Released ROS Distribution [1.vi]
 
-`libconsole-bridge-dev` will not break API nor ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+If a breaking change is introduced, ROS2 distributions will pin `libconsole-bridge-dev` to a specific major version.
 
 ## Change Control Process [2]
 
@@ -56,15 +56,11 @@ Currently not tested on CI.
 
 All pull requests must resolve related documentation changes before merging.
 
-###  Documentation Policy [2.v]
-
-All pull requests must resolve related documentation changes before merging.
-
 ## Documentation [3]
 
 ### Feature Documentation [3.i]
 
-`libconsole-bridge-dev` does not have a per feature documentation. Provides partial documentation on this [wiki](http://wiki.ros.org/console_bridge).
+`libconsole-bridge-dev` does not have per-feature documentation. There is partial documentation on the ROS 1 [wiki](http://wiki.ros.org/console_bridge).
 
 ### Public API Documentation [3.ii]
 
@@ -72,7 +68,7 @@ There is no Public API documentation for this library.
 
 ### License [3.iii]
 
-The license for `libconsole-bridge-dev` is Apache 3-Clause BSD, and a summary is in each source file and a full copy of the license is in the [`LICENSE`](./LICENSE) file.
+The license for `libconsole-bridge-dev` is 3-Clause BSD, and a summary is in each source file and a full copy of the license is in the [`LICENSE`](./LICENSE) file.
 
 ### Copyright Statements [3.iv]
 
@@ -106,7 +102,7 @@ The copyright holders each provide a statement of copyright in each source code 
 
 ## Platform Support [6]
 
-Is not publicly stated the platforms supported by `libconsole-bridge-dev`.
+It is not publicly stated which platforms are supported by `libconsole-bridge-dev`.
 
 ## Security
 
