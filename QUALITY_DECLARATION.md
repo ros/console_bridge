@@ -2,90 +2,114 @@ This document is a declaration of software quality for the `libconsole-bridge-de
 
 # `libconsole-bridge-dev` Quality Declaration
 
-The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 1** category.
+The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 4** category.
 
-This library is used as an upstream package, not maintained as other ROS packages. However, the issues in [REP-2004](https://www.ros.org/reps/rep-2004.html) were addressed with some minor modifications, below is explained the rationale used for each topic.
+Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Quality Categories in REP-2004](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#package-quality-categories) of the ROS2 developer guide.
 
+## Version Policy [1]
 
-## Version Policy
+### Version Scheme [1.i]
 
-### Version Scheme
+`libconsole-bridge-dev` uses `semver` according to the recommendation for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#versioning).
 
-Current state: Their latest library release is set to 0.4.4
-TODO: Move version 0.4.4 to >= 1.0.0, check/enforce semver use
+### Version Stability [1.ii]
 
-`libconsole-bridge-dev` uses `semver` according to the recommendation for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#versioning), and is at or above a stable version, i.e. `>= 1.0.0`. 
+`libconsole-bridge-dev` is not yet at a stable version, i.e. `>= 1.0.0`.
 
-### API Stability // ABI Stability
+### Public API Declaration [1.iii]
 
-TODO: define policy to handle API/ABI stability for upstream packages, or at least for this one
+All symbols in the installed headers are considered part of the public API.
 
-`libconsole-bridge-dev` will not break public API nor ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
+### API Stability Policy [1.iv]
 
-### Public API Declaration
+`libconsole-bridge-dev` is used as an upstream package within the ROS2 ecosystem, and is pinned to a particular version to guarantee it will not break public API within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
 
-The API of this package is considered to be the public definitions on the `include` [folder](https://github.com/ros/console_bridge/tree/master/include) of this repository.
+### ABI Stability Policy [1.v]
 
-## Change Control Process
+`libconsole-bridge-dev` is used as an upstream package within the ROS2 ecosystem, and is pinned to a particular version to guarantee it will not break public ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
 
-TODO: define CI used for this package?
+### ABI and ABI Stability Within a Released ROS Distribution [1.vi]
 
-`libconsole-bridge-dev`  follows the recommended guidelines for ROS Core packages in the  [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#change-control-process).
+`libconsole-bridge-dev` will not break API nor ABI within a released ROS distribution, i.e. no major releases once the ROS distribution is released.
 
-This includes:
+## Change Control Process [2]
 
--   all changes occur through a pull request
--   all pull request have two peer reviews
--   all pull request must pass CI on all  [tier 1 platforms](https://www.ros.org/reps/rep-2000.html#support-tiers)
--   all pull request must resolve related documentation changes before merging
+`libconsole-bridge-dev` follows the recommended guidelines for ROS Core packages in the [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#change-control-process).
 
-## Documentation
+### Change Requests [2.i]
 
-TODO fix links
+All changes will occur through a pull request, check [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#change-control-process) for additional information.
 
-`libconsole-bridge-dev`  has a  [feature list](TODO)  and each item in the list links to the corresponding feature documentation. There is documentation for all of the features, and new features require documentation before being added.
+### Contributor Origin [2.ii]
 
-`libconsole-bridge-dev` has embedded API documentation and it is generated using doxygen and is [hosted](TODO) along side the feature documentation. There is documentation for all of the public API, and new additions to the public API require documentation before being added.
+This package uses DCO as its confirmation of contributor origin policy. More info can be seen under the [contributing file](./CONTRIBUTING.md) of this repository.
 
-### License and Copyright Statements
+### Peer Review Policy [2.iii]
 
-TODO: Add license explicitly in the package LICENSE file, verify if the linter is run for upstream packages.
+All pull requests will be peer-reviewed, check [ROS 2 Developer Guide](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#change-control-process) for additional information.
 
-The copyright holders each provide a statement of copyright in each source code file in  `libconsole-bridge-dev`. The license used is [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause).
+### Continuous Integration [2.iv]
 
-There is an automated test which runs a linter that ensures each file has at least one copyright statement.
+Currently not tested on CI.
 
-## Testing
+###  Documentation Policy [2.v]
 
-TODO: Add more tests for the library, check that all the features are tested (coverage).
+All pull requests must resolve related documentation changes before merging.
 
-Each feature in  `libconsole-bridge-dev`  has corresponding tests which simulate typical usage, and they are located in the  `test`  directory. New features are required to have tests before being added.
+###  Documentation Policy [2.v]
 
-Each part of the public API have tests, and new additions or changes to the public API require tests before being added. The tests aim to cover both typical usage and corner cases, but are quantified by contributing to code coverage.
+All pull requests must resolve related documentation changes before merging.
 
-## Coverage
+## Documentation [3]
 
-TODO Add coverage reports / analysis
+### Feature Documentation [3.i]
 
-`libconsole-bridge-dev`  follows the recommendations for ROS Core packages in the  [ROS 2 Developer Guide]([https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#code-coverage](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#code-coverage)), and opts to use branch coverage instead of line coverage.
+`libconsole-bridge-dev` does not have a per feature documentation. Provides partial documentation on this [wiki](http://wiki.ros.org/console_bridge).
 
-This includes:
+### Public API Documentation [3.ii]
 
--   tracking and reporting branch coverage statistics
--   achieving and maintaining branch coverage at or above 95%
--   no lines are manually skipped in coverage calculations
+There is no Public API documentation for this library.
 
-Changes are required to make a best effort to keep or increase coverage before being accepted, but decreases are allowed if properly justified and accepted by reviewers.
+### License [3.iii]
 
-Current coverage statistics can be viewed [here](TODO):
+The license for `libconsole-bridge-dev` is Apache 3-Clause BSD, and a summary is in each source file and a full copy of the license is in the [`LICENSE`](./LICENSE) file.
 
-## Dependencies
+### Copyright Statements [3.iv]
 
-`libconsole-bridge-dev` dependencies all match quality level 1.
+The copyright holders each provide a statement of copyright in each source code file in `libconsole-bridge-dev`.
 
-The only dependency for this package is [`pkg-config`](https://packages.debian.org/buster/pkg-config). As this is a widely used tool in Linux systems, we consider this dependency to match Quality Level 1. 
+## Testing [4]
 
-## Platform Support
-TODO: Make a statement for platforms support, and CI report?
+### Feature Testing [4.i]
 
-`libconsole-bridge-dev` supports all of the tier 1 platforms as described in [REP-2000](https://www.ros.org/reps/rep-2000.html#support-tiers), and tests each change against all of them.
+`libconsole-bridge-dev` provides partial testing of some features under the [test folder](./test/).
+
+### Public API Testing [4.ii]
+
+`libconsole-bridge-dev` does not have Public API testing.
+
+### Coverage [4.iii]
+
+`libconsole-bridge-dev` does not provide coverage testing.
+
+### Performance [4.iv]
+
+`libconsole-bridge-dev` does not provide performance testing.
+
+### Linters and Static Analysis [4.v]
+
+`libconsole-bridge-dev` is not being tested with linters or static analysis tools.
+
+## Dependencies [5]
+
+`libconsole-bridge-dev` has no run-time or build-time dependencies that need to be considered for this declaration. 
+
+## Platform Support [6]
+
+Is not publicly stated the platforms supported by `libconsole-bridge-dev`.
+
+## Security
+
+### Vulnerability Disclosure Policy [7.i]
+
+This library does not have a Vulnerability Disclosure Policy.
