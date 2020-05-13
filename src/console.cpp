@@ -41,6 +41,8 @@
 
 #include <iostream>
 #include <mutex>
+#include <string>
+#include <utility>
 
 /// @cond IGNORE
 
@@ -57,7 +59,8 @@ struct DefaultOutputHandler
     console_bridge::OutputHandler   *output_handler_;
     console_bridge::OutputHandler   *previous_output_handler_;
     console_bridge::LogLevel         logLevel_;
-    std::mutex                       lock_; // it is likely the outputhandler does some I/O, so we serialize it
+    // it is likely the outputhandler does some I/O, so we serialize it
+    std::mutex                       lock_;
 };
 
 // we use this function because we want to handle static initialization correctly
@@ -137,16 +140,17 @@ console_bridge::LogLevel console_bridge::getLogLevel(void)
 
 static const char* LogLevelString[4] = {"Debug:   ", "Info:    ", "Warning: ", "Error:   "};
 
-void console_bridge::OutputHandlerSTD::log(const std::string &text, LogLevel level, const char *filename, int line)
+void console_bridge::OutputHandlerSTD::log(const std::string &text,
+                                           LogLevel level,
+                                           const char *filename,
+                                           int line)
 {
     if (level >= CONSOLE_BRIDGE_LOG_WARN)
     {
         std::cerr << LogLevelString[level] << text << std::endl;
         std::cerr << "         at line " << line << " in " << filename << std::endl;
         std::cerr.flush();
-    }
-    else
-    {
+    } else {
         std::cout << LogLevelString[level] << text << std::endl;
         std::cout.flush();
     }
@@ -171,7 +175,10 @@ console_bridge::OutputHandlerFile::~OutputHandlerFile(void)
             std::cerr << "Error closing logfile" << std::endl;
 }
 
-void console_bridge::OutputHandlerFile::log(const std::string &text, LogLevel level, const char *filename, int line)
+void console_bridge::OutputHandlerFile::log(const std::string &text,
+                                            LogLevel level,
+                                            const char *filename,
+                                            int line)
 {
     if (file_)
     {
