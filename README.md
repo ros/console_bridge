@@ -5,3 +5,13 @@
 ## Quality Declaration
 
 This package claims to be in the **Quality Level 4** category, see the [Quality Declaration](./QUALITY_DECLARATION.md) for more details.
+
+## Features
+
+This library allows to log messages in the standard output and the standard output error based on the log level:
+
+ - CONSOLE_BRIDGE_LOG_DEBUG
+ - CONSOLE_BRIDGE_LOG_INFO
+ - CONSOLE_BRIDGE_LOG_WARN
+ - CONSOLE_BRIDGE_LOG_ERROR
+ - CONSOLE_BRIDGE_LOG_NONE
