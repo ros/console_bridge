@@ -182,3 +182,21 @@ TEST(ConsoleTest, NoOutputHandler)
   EXPECT_EQ(string_oh.text_, "Debug2");
   EXPECT_EQ(string_oh.log_level_, console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
 }
+
+TEST(ConsoleTest, TestLogLevel)
+{
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_DEBUG);
+  EXPECT_EQ(console_bridge::getLogLevel(), console_bridge::CONSOLE_BRIDGE_LOG_DEBUG);
+
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_INFO);
+  EXPECT_EQ(console_bridge::getLogLevel(), console_bridge::CONSOLE_BRIDGE_LOG_INFO);
+
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_WARN);
+  EXPECT_EQ(console_bridge::getLogLevel(), console_bridge::CONSOLE_BRIDGE_LOG_WARN);
+
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_ERROR);
+  EXPECT_EQ(console_bridge::getLogLevel(), console_bridge::CONSOLE_BRIDGE_LOG_ERROR);
+
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_NONE);
+  EXPECT_EQ(console_bridge::getLogLevel(), console_bridge::CONSOLE_BRIDGE_LOG_NONE);
+}
