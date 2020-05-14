@@ -15,7 +15,7 @@ script:
   - make test ARGS="-VV"
 before_install:
   - sudo apt-get update
-  - sudo apt-get install python3
+  - sudo apt-get install python3 cppcheck
 after_script:
   - sudo make install
   - pkg-config --modversion console_bridge
