@@ -13,6 +13,12 @@ build_script:
   - cmake .. -DEXTRA_CMAKE_CXX_FLAGS="-WX" -DBUILD_TESTING=True
   - cmake --build . --config %CONFIGURATION%
 
+install:
+  # Prepend newly installed Python to the PATH of this build (this cannot be
+  # done from inside the powershell script as it would require to restart
+  # the parent CMD process).
+  - "SET PATH=C:\\Python35;C:\\Python35\\Scripts;%PATH%"
+
 test_script:
   - cmake --build . --config %CONFIGURATION% --target RUN_TESTS
 
