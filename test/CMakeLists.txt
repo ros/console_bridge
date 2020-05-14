@@ -64,7 +64,7 @@ if(WGET_EXE)
   add_test(NAME console_bridge_cppcheck
            COMMAND "${PYTHON_EXECUTABLE}"
                    "cppcheck.py"
-                   "--language=c++" "${CMAKE_SOURCE_DIR}/src" "${CMAKE_SOURCE_DIR}/include"
+                   "--language=c++" "${PROJECT_SOURCE_DIR}/src" "${PROJECT_SOURCE_DIR}/include"
   )
 
   add_custom_target(wget_cpplint
@@ -78,8 +78,8 @@ if(WGET_EXE)
                    "--extensions=cpp,h"
                    "--linelength=100"
                    "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon"
-           "${CMAKE_SOURCE_DIR}/include/console_bridge/console.h"
-           "${CMAKE_SOURCE_DIR}/src/console.cpp"
+           "${PROJECT_SOURCE_DIR}/include/console_bridge/console.h"
+           "${PROJECT_SOURCE_DIR}/src/console.cpp"
   )
 
   add_dependencies(console_bridge wget_cppcheck wget_cpplint)
