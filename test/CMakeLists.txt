@@ -47,7 +47,7 @@ foreach(GTEST_SOURCE_file ${tests})
    set_tests_properties(${BINARY_NAME} PROPERTIES TIMEOUT 240)
 endforeach()
 
-find_package(PythonInterp)
+find_package(PythonInterp 3 REQUIRED)
 
 if(NOT PYTHONINTERP_FOUND)
   message(STATUS "No PythonInterp found. Linters will not be executed")
