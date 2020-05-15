@@ -74,6 +74,8 @@ The license for `libconsole-bridge-dev` is 3-Clause BSD, and a summary is in eac
 
 The copyright holders each provide a statement of copyright in each source code file in `libconsole-bridge-dev`.
 
+New source files added to this library will require having a copyright statement.
+
 ## Testing [4]
 
 ### Feature Testing [4.i]
