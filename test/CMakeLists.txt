@@ -50,7 +50,7 @@ endforeach()
 find_package(PythonInterp 3 REQUIRED)
 
 if(NOT PYTHONINTERP_FOUND)
-  message(STATUS "No PythonInterp found. Linters will not be executed")
+  message(WARNING "No PythonInterp found. Linters will not be executed")
   return()
 endif()
 
@@ -85,5 +85,5 @@ if(WGET_EXE)
   add_dependencies(console_bridge wget_cppcheck wget_cpplint)
 
 else()
-  message(STATUS "wget not found. Linters will not be executed")
+  message(WARNING "wget not found. Linters will not be executed")
 endif()
