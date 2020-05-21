@@ -9,10 +9,13 @@ env:
   - BUILD_TYPE=RelWithDebInfo
 script:
   - mkdir build
-  - cd build 
-  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_FLAGS=-Werror ..
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_FLAGS=-Werror -DBUILD_TESTING=True ..
   - make
   - make test ARGS="-VV"
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install python3 cppcheck
 after_script:
   - sudo make install
   - pkg-config --modversion console_bridge

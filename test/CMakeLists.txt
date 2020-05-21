@@ -46,3 +46,44 @@ foreach(GTEST_SOURCE_file ${tests})
 
    set_tests_properties(${BINARY_NAME} PROPERTIES TIMEOUT 240)
 endforeach()
+
+find_package(PythonInterp 3 REQUIRED)
+
+if(NOT PYTHONINTERP_FOUND)
+  message(WARNING "No PythonInterp found. Linters will not be executed")
+  return()
+endif()
+
+find_program(WGET_EXE wget)
+if(WGET_EXE)
+  message(STATUS "Found WGet: ${WGET_EXE}")
+  add_custom_target(wget_cppcheck
+                    COMMAND ${WGET_EXE} -q -O cppcheck.py https://raw.githubusercontent.com/ament/ament_lint/master/ament_cppcheck/ament_cppcheck/main.py
+  )
+
+  add_test(NAME console_bridge_cppcheck
+           COMMAND "${PYTHON_EXECUTABLE}"
+                   "cppcheck.py"
+                   "--language=c++" "${PROJECT_SOURCE_DIR}/src" "${PROJECT_SOURCE_DIR}/include"
+  )
+
+  add_custom_target(wget_cpplint
+                    COMMAND wget -q -O cpplint.py https://raw.githubusercontent.com/ament/ament_lint/master/ament_cpplint/ament_cpplint/cpplint.py
+  )
+
+  add_test(NAME console_bridge_cpplint
+           COMMAND "${PYTHON_EXECUTABLE}"
+                   "cpplint.py"
+                   "--counting=detailed"
+                   "--extensions=cpp,h"
+                   "--linelength=100"
+                   "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon"
+           "${PROJECT_SOURCE_DIR}/include/console_bridge/console.h"
+           "${PROJECT_SOURCE_DIR}/src/console.cpp"
+  )
+
+  add_dependencies(console_bridge wget_cppcheck wget_cpplint)
+
+else()
+  message(WARNING "wget not found. Linters will not be executed")
+endif()

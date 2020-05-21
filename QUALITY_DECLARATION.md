@@ -96,7 +96,7 @@ New source files added to this library will require having a copyright statement
 
 ### Linters and Static Analysis [4.v]
 
-`libconsole-bridge-dev` is not being tested with linters or static analysis tools.
+`libconsole-bridge-dev` is being tested with `cppcheck` and `cpplint`.
 
 ## Dependencies [5]
 

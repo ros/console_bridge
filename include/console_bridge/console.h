@@ -34,12 +34,12 @@
 
 /* Author: Ryan Luna, Ioan Sucan */
 
-#ifndef CONSOLE_BRIDGE_CONSOLE_
-#define CONSOLE_BRIDGE_CONSOLE_
+#ifndef INCLUDE_CONSOLE_BRIDGE_CONSOLE_H_
+#define INCLUDE_CONSOLE_BRIDGE_CONSOLE_H_
 
 #include <string>
 
-#include "console_bridge_export.h"
+#include "./console_bridge_export.h"
 
 /** \file console.h
     \defgroup logging Logging Macros
@@ -93,7 +93,7 @@ enum CONSOLE_BRIDGE_DLLAPI LogLevel
 
 /** \brief Generic class to handle output from a piece of
     code.
-    
+
     In order to handle output from the library in different
     ways, an implementation of this class needs to be
     provided. This instance can be set with the useOutputHandler
@@ -101,15 +101,14 @@ enum CONSOLE_BRIDGE_DLLAPI LogLevel
 class CONSOLE_BRIDGE_DLLAPI OutputHandler
 {
 public:
-  
   OutputHandler(void)
   {
   }
-  
+
   virtual ~OutputHandler(void)
   {
   }
-  
+
   /** \brief log a message to the output handler with the given text
       and logging level from a specific file and line number */
   virtual void log(const std::string &text, LogLevel level, const char *filename, int line) = 0;
@@ -120,44 +119,45 @@ public:
 class CONSOLE_BRIDGE_DLLAPI OutputHandlerSTD : public OutputHandler
 {
 public:
-  
   OutputHandlerSTD(void) : OutputHandler()
   {
   }
-  
+
   virtual void log(const std::string &text, LogLevel level, const char *filename, int line);
-  
 };
 
 /** \brief Implementation of OutputHandler that saves messages in a file. */
 class CONSOLE_BRIDGE_DLLAPI OutputHandlerFile : public OutputHandler
 {
 public:
-  
   /** \brief The name of the file in which to save the message data */
-  OutputHandlerFile(const char *filename);
-  
+  explicit OutputHandlerFile(const char *filename);
+
   virtual ~OutputHandlerFile(void);
-  
+
   virtual void log(const std::string &text, LogLevel level, const char *filename, int line);
-  
+
 private:
-  
   /** \brief The file to save to */
   FILE *file_;
-  
 };
 
-/** \brief This function instructs ompl that no messages should be outputted. Equivalent to useOutputHandler(NULL) */
+/** \brief This function instructs ompl that no messages should be outputted.
+ * Equivalent to useOutputHandler(NULL)
+ */
 CONSOLE_BRIDGE_DLLAPI void noOutputHandler(void);
 
 /** \brief Restore the output handler that was previously in use (if any) */
 CONSOLE_BRIDGE_DLLAPI void restorePreviousOutputHandler(void);
 
-/** \brief Specify the instance of the OutputHandler to use. By default, this is OutputHandlerSTD */
+/** \brief Specify the instance of the OutputHandler to use.
+ * By default, this is OutputHandlerSTD
+ */
 CONSOLE_BRIDGE_DLLAPI void useOutputHandler(OutputHandler *oh);
 
-/** \brief Get the instance of the OutputHandler currently used. This is NULL in case there is no output handler. */
+/** \brief Get the instance of the OutputHandler currently used.
+ * This is NULL in case there is no output handler.
+ */
 CONSOLE_BRIDGE_DLLAPI OutputHandler* getOutputHandler(void);
 
 /** \brief Set the minimum level of logging data to output.  Messages
@@ -171,8 +171,12 @@ CONSOLE_BRIDGE_DLLAPI LogLevel getLogLevel(void);
 /** \brief Root level logging function.  This should not be invoked directly,
     but rather used via a \ref logging "logging macro".  Formats the message
     string given the arguments and forwards the string to the output handler */
-CONSOLE_BRIDGE_DLLAPI void log(const char *file, int line, LogLevel level, const char* m, ...);
-}
+CONSOLE_BRIDGE_DLLAPI void log(const char *file,
+                               int line,
+                               LogLevel level,
+                               const char* m,
+                               ...);
+}  // namespace console_bridge
 
 
-#endif
+#endif  // INCLUDE_CONSOLE_BRIDGE_CONSOLE_H_
