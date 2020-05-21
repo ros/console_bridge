@@ -38,7 +38,6 @@ if(MSVC OR MSVC90 OR MSVC10)
   set(MSVC ON)
 endif (MSVC OR MSVC90 OR MSVC10)
 
-include_directories(include ${PROJECT_BINARY_DIR})
 
 if(NOT DEFINED BUILD_SHARED_LIBS)
   option(BUILD_SHARED_LIBS "Build dynamically-linked binaries" ON)
@@ -52,8 +51,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}"
 add_library(${PROJECT_NAME} src/console.cpp)
 set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION
                ${CONSOLE_BRIDGE_MAJOR_VERSION}.${CONSOLE_BRIDGE_MINOR_VERSION})
-target_include_directories(${PROJECT_NAME} INTERFACE
+target_include_directories(${PROJECT_NAME} PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+	$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
 	$<INSTALL_INTERFACE:include>)
 generate_export_header(${PROJECT_NAME}
     EXPORT_MACRO_NAME CONSOLE_BRIDGE_DLLAPI)
