@@ -179,7 +179,7 @@ CONSOLE_BRIDGE_DLLAPI LogLevel getLogLevel(void);
 
 /**
  * \brief Root level logging function.  This should not be invoked directly, but rather used via a
- * \ref logging "logging macro".  Formats the message string given the arguments and forwards the
+ * \ref logging "logging macro". Formats the message string given the arguments and forwards the
  * string to the output handler
  */
 CONSOLE_BRIDGE_DLLAPI void log(const char *file,
