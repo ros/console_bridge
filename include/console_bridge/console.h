@@ -105,7 +105,7 @@ public:
   virtual ~OutputHandler(void){}
 
   /**
-   * \brief log a message to the output handler with the given text       and logging level from a
+   * \brief log a message to the output handler with the given text and logging level from a
    * specific file and line number
    * \param text to log
    * \param level console_bridge log level
@@ -143,7 +143,7 @@ private:
 };
 
 /**
- * \brief This function instructs ompl that no messages should be outputted.
+ * \brief This function instructs console bridge that no messages should be outputted.
  * Equivalent to useOutputHandler(NULL)
  */
 CONSOLE_BRIDGE_DLLAPI void noOutputHandler(void);
