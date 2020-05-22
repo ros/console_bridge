@@ -75,10 +75,10 @@
 #define CONSOLE_BRIDGE_logDebug(...)  \
   console_bridge::log(__FILE__, __LINE__, console_bridge::CONSOLE_BRIDGE_LOG_DEBUG, __VA_ARGS__)
 
-
-/** \brief Message namespace. This contains classes needed to
-    output error messages (or logging) from within the library.
-    Message logging can be performed with \ref logging "logging macros" */
+/**
+ * \brief Message namespace. This contains classes needed to output error messages (or logging)
+ * from within the library. Message logging can be performed with \ref logging "logging macros"
+ */
 namespace console_bridge
 {
 /** \brief The set of priorities for message logging */
@@ -91,37 +91,37 @@ enum CONSOLE_BRIDGE_DLLAPI LogLevel
     CONSOLE_BRIDGE_LOG_NONE
   };
 
-/** \brief Generic class to handle output from a piece of
-    code.
-
-    In order to handle output from the library in different
-    ways, an implementation of this class needs to be
-    provided. This instance can be set with the useOutputHandler
-    function. */
+/**
+ * \brief Generic class to handle output from a piece of code.
+ *
+ * In order to handle output from the library in different ways, an implementation of this class
+ * needs to be provided. This instance can be set with the useOutputHandler function.
+ */
 class CONSOLE_BRIDGE_DLLAPI OutputHandler
 {
 public:
-  OutputHandler(void)
-  {
-  }
+  OutputHandler(void){}
 
-  virtual ~OutputHandler(void)
-  {
-  }
+  virtual ~OutputHandler(void){}
 
-  /** \brief log a message to the output handler with the given text
-      and logging level from a specific file and line number */
+  /**
+   * \brief log a message to the output handler with the given text and logging level from a
+   * specific file and line number
+   * \param text to log
+   * \param level console_bridge log level
+   * \param filename of the output log
+   * \param line
+   */
   virtual void log(const std::string &text, LogLevel level, const char *filename, int line) = 0;
 };
 
-/** \brief Default implementation of OutputHandler. This sends
-    the information to the console. */
+/**
+ * \brief Default implementation of OutputHandler. This sends the information to the console.
+ */
 class CONSOLE_BRIDGE_DLLAPI OutputHandlerSTD : public OutputHandler
 {
 public:
-  OutputHandlerSTD(void) : OutputHandler()
-  {
-  }
+  OutputHandlerSTD(void) : OutputHandler(){}
 
   virtual void log(const std::string &text, LogLevel level, const char *filename, int line);
 };
@@ -142,41 +142,51 @@ private:
   FILE *file_;
 };
 
-/** \brief This function instructs ompl that no messages should be outputted.
+/**
+ * \brief This function instructs console bridge that no messages should be outputted.
  * Equivalent to useOutputHandler(NULL)
  */
 CONSOLE_BRIDGE_DLLAPI void noOutputHandler(void);
 
-/** \brief Restore the output handler that was previously in use (if any) */
+/**
+ * \brief Restore the output handler that was previously in use (if any)
+ */
 CONSOLE_BRIDGE_DLLAPI void restorePreviousOutputHandler(void);
 
-/** \brief Specify the instance of the OutputHandler to use.
+/**
+ * \brief Specify the instance of the OutputHandler to use.
  * By default, this is OutputHandlerSTD
  */
 CONSOLE_BRIDGE_DLLAPI void useOutputHandler(OutputHandler *oh);
 
-/** \brief Get the instance of the OutputHandler currently used.
+/**
+ * \brief Get the instance of the OutputHandler currently used.
  * This is NULL in case there is no output handler.
  */
 CONSOLE_BRIDGE_DLLAPI OutputHandler* getOutputHandler(void);
 
-/** \brief Set the minimum level of logging data to output.  Messages
-    with lower logging levels will not be recorded. */
+/**
+ * \brief Set the minimum level of logging data to output. Messages with lower logging levels will
+ * not be recorded.
+ */
 CONSOLE_BRIDGE_DLLAPI void setLogLevel(LogLevel level);
 
-/** \brief Retrieve the current level of logging data.  Messages
-    with lower logging levels will not be recorded. */
+/**
+ * \brief Retrieve the current level of logging data. Messages with lower logging levels will not be
+ * recorded.
+ */
 CONSOLE_BRIDGE_DLLAPI LogLevel getLogLevel(void);
 
-/** \brief Root level logging function.  This should not be invoked directly,
-    but rather used via a \ref logging "logging macro".  Formats the message
-    string given the arguments and forwards the string to the output handler */
+/**
+ * \brief Root level logging function.  This should not be invoked directly, but rather used via a
+ * \ref logging "logging macro". Formats the message string given the arguments and forwards the
+ * string to the output handler
+ */
 CONSOLE_BRIDGE_DLLAPI void log(const char *file,
                                int line,
                                LogLevel level,
                                const char* m,
                                ...);
 }  // namespace console_bridge
-
 
 #endif  // INCLUDE_CONSOLE_BRIDGE_CONSOLE_H_
