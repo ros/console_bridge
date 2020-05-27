@@ -14,7 +14,7 @@ Below are the rationales, notes, and caveats for this claim, organized by each r
 
 ### Version Stability [1.ii]
 
-`libconsole-bridge-dev` is not yet at a stable version, i.e. `>= 1.0.0`.
+`libconsole-bridge-dev` is at a stable version, i.e. `>= 1.0.0`.
 
 ### Public API Declaration [1.iii]
 
@@ -100,7 +100,7 @@ New source files added to this library will require having a copyright statement
 
 ## Dependencies [5]
 
-`libconsole-bridge-dev` has no run-time or build-time dependencies that need to be considered for this declaration. 
+`libconsole-bridge-dev` has no run-time or build-time dependencies that need to be considered for this declaration.
 
 ## Platform Support [6]
 
