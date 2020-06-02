@@ -110,4 +110,4 @@ It is not publicly stated which platforms are supported by `libconsole-bridge-de
 
 ### Vulnerability Disclosure Policy [7.i]
 
-This library does not have a Vulnerability Disclosure Policy.
+This package conforms to the Vulnerability Disclosure Policy in [REP-2006](https://www.ros.org/reps/rep-2006.html).
