@@ -69,7 +69,7 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Public API Documentation [3.ii]
 
-All functions and classes of the public API of the `libconsole-bridge-dev` include docblocks explaining their functionality or describing its usage.
+All functions and classes in the public API of `libconsole-bridge-dev` include docblocks explaining their functionality or describing its usage.
 
 ### License [3.iii]
 
@@ -120,7 +120,7 @@ Current test results are shown here:
 
 ## Platform Support [6]
 
-`libconsole-bridge-dev` oficially supports Linux, Windows and MacOs systems. CI tests PRs with Linux Trusty (Travis CI) and Windows Server 2019 (Appveyor).
+`libconsole-bridge-dev` officially supports Ubuntu, Windows and MacOS systems. CI tests PRs with Ubuntu Trusty (Travis CI) and Windows Server 2019 (Appveyor).
 
 ## Security
 
