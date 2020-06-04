@@ -2,7 +2,7 @@ This document is a declaration of software quality for the `libconsole-bridge-de
 
 # `libconsole-bridge-dev` Quality Declaration
 
-The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 4** category.
+The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 2** category.
 
 Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Quality Categories in REP-2004](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#package-quality-categories) of the ROS2 developer guide.
 
@@ -50,7 +50,12 @@ All pull requests will be peer-reviewed, check [ROS 2 Developer Guide](https://i
 
 ### Continuous Integration [2.iv]
 
-Currently not tested on CI.
+Pull requests must pass CI under Linux and Windows environments set in with AppVeyor and Travis-CI. Jobs are automatically trigered with each PR and the results shown in the Github repository.
+
+Current test results are shown here:
+
+[Linux (Travis CI)](https://travis-ci.org/github/ros/console_bridge)
+[Windows (Appveyor)](https://ci.appveyor.com/project/tfoote/console-bridge)
 
 ###  Documentation Policy [2.v]
 
@@ -60,11 +65,11 @@ All pull requests must resolve related documentation changes before merging.
 
 ### Feature Documentation [3.i]
 
-`libconsole-bridge-dev` does not have per-feature documentation. There is partial documentation on the ROS 1 [wiki](http://wiki.ros.org/console_bridge).
+`libconsole-bridge-dev` lists its features in the README file of its GitHub repository, [here](https://github.com/ros/console_bridge/#features). Also its [wiki](http://wiki.ros.org/console_bridge) provides additional documentation over its usage.
 
 ### Public API Documentation [3.ii]
 
-There is no Public API documentation for this library.
+All functions and classes of the public API of the `libconsole-bridge-dev` include docblocks explaining their functionality or describing its usage.
 
 ### License [3.iii]
 
@@ -80,15 +85,26 @@ New source files added to this library will require having a copyright statement
 
 ### Feature Testing [4.i]
 
-`libconsole-bridge-dev` provides partial testing of some features under the [test folder](./test/).
+`libconsole-bridge-dev` provides testing of its [features](https://github.com/ros/console_bridge/#features) under the [test folder](./test/).
 
 ### Public API Testing [4.ii]
 
-`libconsole-bridge-dev` does not have Public API testing.
+`libconsole-bridge-dev` includes public API tests and new additions or changes to the public API require tests before being added.
+
+The tests aim to cover both typical usage and corner cases, but are quantified by contributing to code coverage. Currently, the complete API of the package is not fully tested.
+
+Current test results are shown here:
+
+[Linux (Travis CI)](https://travis-ci.org/github/ros/console_bridge)
+[Windows (Appveyor)](https://ci.appveyor.com/project/tfoote/console-bridge)
 
 ### Coverage [4.iii]
 
-`libconsole-bridge-dev` does not provide coverage testing.
+`libconsole-bridge-dev` provides coverage testing under its configured Travis-CI.
+
+Current test results are shown here:
+
+[Linux Coverage results(codecov)](https://codecov.io/gh/ros/console_bridge).
 
 ### Performance [4.iv]
 
@@ -104,7 +120,7 @@ New source files added to this library will require having a copyright statement
 
 ## Platform Support [6]
 
-It is not publicly stated which platforms are supported by `libconsole-bridge-dev`.
+`libconsole-bridge-dev` oficially supports Linux, Windows and MacOs systems. CI tests PRs with Linux Trusty (Travis CI) and Windows Server 2019 (Appveyor).
 
 ## Security
 
