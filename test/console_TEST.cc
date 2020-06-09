@@ -88,10 +88,15 @@ TEST(ConsoleTest, MacroExpansionTest_ItShouldCompile)
 //////////////////////////////////////////////////
 TEST(ConsoleTest, StdoutStderrOutput)
 {
-  CONSOLE_BRIDGE_logDebug("Testing Log");
-  CONSOLE_BRIDGE_logInform("Testing Log");
-  CONSOLE_BRIDGE_logWarn("Testing Log");
-  CONSOLE_BRIDGE_logError("Testing Log");
+  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logDebug("Testing Log"));
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logInform("Testing Log"));
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logWarn("Testing Log"));
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logError("Testing Log"));
 }
 
 //////////////////////////////////////////////////
@@ -280,11 +285,14 @@ private:
 };
 
 TEST_F(FileHandlerTest, TestInformDoesntLog) {
-  const std::string text = "Some logging text";
-  console_bridge::OutputHandlerFile handler(log_filename());
-  console_bridge::useOutputHandler(&handler);
-  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_WARN);
-  CONSOLE_BRIDGE_logInform("This shouldn't log to file because it's only inform");
+  // Use scoping to call ~OutputHandelFile() and force in to flush contents and close file
+  {
+    const std::string text = "Some logging text";
+    console_bridge::OutputHandlerFile handler(log_filename());
+    console_bridge::useOutputHandler(&handler);
+    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_WARN);
+    CONSOLE_BRIDGE_logInform("This shouldn't log to file because it's only inform");
+  }
 
   const std::string result = getTextFromLogFile();
   EXPECT_TRUE(result.empty()) << "Log file was not empty, it contained:\n\n" << result;
@@ -292,10 +300,13 @@ TEST_F(FileHandlerTest, TestInformDoesntLog) {
 
 TEST_F(FileHandlerTest, TestErrorLogs) {
   const std::string text = "Some logging text";
-  console_bridge::OutputHandlerFile handler(log_filename());
-  console_bridge::useOutputHandler(&handler);
-  CONSOLE_BRIDGE_logError(text.c_str());
 
+  // Use scoping to call ~OutputHandelFile() and force in to flush contents and close file
+  {
+    console_bridge::OutputHandlerFile handler(log_filename());
+    console_bridge::useOutputHandler(&handler);
+    CONSOLE_BRIDGE_logError(text.c_str());
+  }
   const std::string expected_text = "Error:   " + text;
   const std::string result = getTextFromLogFile();
 
@@ -306,10 +317,14 @@ TEST_F(FileHandlerTest, TestErrorLogs) {
 
 TEST_F(FileHandlerTest, TestInformLogsWithLogLevel) {
   const std::string text = "Some logging text";
-  console_bridge::OutputHandlerFile handler(log_filename());
-  console_bridge::useOutputHandler(&handler);
-  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_INFO);
-  CONSOLE_BRIDGE_logInform(text.c_str());
+
+  // Use scoping to call ~OutputHandelFile() and force in to flush contents and close file
+  {
+    console_bridge::OutputHandlerFile handler(log_filename());
+    console_bridge::useOutputHandler(&handler);
+    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_INFO);
+    CONSOLE_BRIDGE_logInform(text.c_str());
+  }
 
   const std::string expected_text = "Info:    " + text;
   const std::string result = getTextFromLogFile();
