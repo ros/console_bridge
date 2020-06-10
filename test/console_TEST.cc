@@ -285,7 +285,7 @@ private:
 };
 
 TEST_F(FileHandlerTest, TestInformDoesntLog) {
-  // Use scoping to call ~OutputHandelFile() and force in to flush contents and close file
+  // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
   {
     const std::string text = "Some logging text";
     console_bridge::OutputHandlerFile handler(log_filename());
@@ -301,7 +301,7 @@ TEST_F(FileHandlerTest, TestInformDoesntLog) {
 TEST_F(FileHandlerTest, TestErrorLogs) {
   const std::string text = "Some logging text";
 
-  // Use scoping to call ~OutputHandelFile() and force in to flush contents and close file
+  // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
   {
     console_bridge::OutputHandlerFile handler(log_filename());
     console_bridge::useOutputHandler(&handler);
@@ -318,7 +318,7 @@ TEST_F(FileHandlerTest, TestErrorLogs) {
 TEST_F(FileHandlerTest, TestInformLogsWithLogLevel) {
   const std::string text = "Some logging text";
 
-  // Use scoping to call ~OutputHandelFile() and force in to flush contents and close file
+  // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
   {
     console_bridge::OutputHandlerFile handler(log_filename());
     console_bridge::useOutputHandler(&handler);
