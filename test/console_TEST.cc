@@ -266,6 +266,12 @@ class FileHandlerTest : public ::testing::Test {
 public:
   FileHandlerTest() : log_filename_("tmp.txt") {}
 
+  virtual void SetUp()
+  {
+    // Needs to be reset to avoid side effects from other tests
+    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_WARN);
+  }
+
   virtual void TearDown()
   {
     remove(log_filename());
@@ -290,7 +296,6 @@ TEST_F(FileHandlerTest, TestInformDoesntLog) {
     const std::string text = "Some logging text";
     console_bridge::OutputHandlerFile handler(log_filename());
     console_bridge::useOutputHandler(&handler);
-    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_WARN);
     CONSOLE_BRIDGE_logInform("This shouldn't log to file because it's only inform");
   }
 
@@ -317,12 +322,12 @@ TEST_F(FileHandlerTest, TestErrorLogs) {
 
 TEST_F(FileHandlerTest, TestInformLogsWithLogLevel) {
   const std::string text = "Some logging text";
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_INFO);
 
   // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
   {
     console_bridge::OutputHandlerFile handler(log_filename());
     console_bridge::useOutputHandler(&handler);
-    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_INFO);
     CONSOLE_BRIDGE_logInform(text.c_str());
   }
 
