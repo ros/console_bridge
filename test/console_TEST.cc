@@ -33,6 +33,8 @@
 *********************************************************************/
 
 #include <cassert>
+#include <fstream>
+#include <sstream>
 #include <gtest/gtest.h>
 
 #include <console_bridge/console.h>
@@ -81,6 +83,20 @@ TEST(ConsoleTest, MacroExpansionTest_ItShouldCompile)
   {
     CONSOLE_BRIDGE_logDebug("Testing Log");
   }
+}
+
+//////////////////////////////////////////////////
+TEST(ConsoleTest, StdoutStderrOutput)
+{
+  console_bridge::setLogLevel(console_bridge::LogLevel::CONSOLE_BRIDGE_LOG_DEBUG);
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logDebug("Testing Log"));
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logInform("Testing Log"));
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logWarn("Testing Log"));
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logError("Testing Log"));
 }
 
 //////////////////////////////////////////////////
@@ -233,4 +249,92 @@ TEST(ConsoleTest, TestLogLevel)
 
   console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_NONE);
   EXPECT_EQ(console_bridge::getLogLevel(), console_bridge::CONSOLE_BRIDGE_LOG_NONE);
+}
+
+TEST(ConsoleTest, TestOutputHandlerFileBadFilename) {
+  console_bridge::OutputHandlerFile handler("/really/hoping/this/path/doesnt/exist.txt");
+  EXPECT_NO_THROW(
+    handler.log("This should not crash", console_bridge::CONSOLE_BRIDGE_LOG_WARN, "file.cpp", 42));
+
+  console_bridge::useOutputHandler(&handler);
+  EXPECT_NO_THROW(
+    CONSOLE_BRIDGE_logError("This also should not crash, nor actually log anything"));
+  // ~OutputHandlerFile() should not fail to close a non-existent file handle
+}
+
+class FileHandlerTest : public ::testing::Test {
+public:
+  FileHandlerTest() : log_filename_("tmp.txt") {}
+
+  virtual void SetUp()
+  {
+    // Needs to be reset to avoid side effects from other tests
+    console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_WARN);
+  }
+
+  virtual void TearDown()
+  {
+    remove(log_filename());
+  }
+
+  std::string getTextFromLogFile() {
+    std::ifstream f(log_filename_);
+    std::stringstream result;
+    result << f.rdbuf();
+    return result.str();
+  }
+
+  const char * log_filename() { return log_filename_.c_str(); }
+
+private:
+  std::string log_filename_;
+};
+
+TEST_F(FileHandlerTest, TestInformDoesntLog) {
+  // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
+  {
+    const std::string text = "Some logging text";
+    console_bridge::OutputHandlerFile handler(log_filename());
+    console_bridge::useOutputHandler(&handler);
+    CONSOLE_BRIDGE_logInform("This shouldn't log to file because it's only inform");
+  }
+
+  const std::string result = getTextFromLogFile();
+  EXPECT_TRUE(result.empty()) << "Log file was not empty, it contained:\n\n" << result;
+}
+
+TEST_F(FileHandlerTest, TestErrorLogs) {
+  const std::string text = "Some logging text";
+
+  // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
+  {
+    console_bridge::OutputHandlerFile handler(log_filename());
+    console_bridge::useOutputHandler(&handler);
+    CONSOLE_BRIDGE_logError(text.c_str());
+  }
+  const std::string expected_text = "Error:   " + text;
+  const std::string result = getTextFromLogFile();
+
+  // Just checking that expected text is in the file, not checking full log statement.
+  EXPECT_NE(result.find(expected_text), result.npos)
+    << "Log file did not contain expected text, instead it contained:\n\n: " << result;
+}
+
+TEST_F(FileHandlerTest, TestInformLogsWithLogLevel) {
+  const std::string text = "Some logging text";
+  console_bridge::setLogLevel(console_bridge::CONSOLE_BRIDGE_LOG_INFO);
+
+  // Use scoping to call ~OutputHandlerFile() and force in to flush contents and close file
+  {
+    console_bridge::OutputHandlerFile handler(log_filename());
+    console_bridge::useOutputHandler(&handler);
+    CONSOLE_BRIDGE_logInform(text.c_str());
+  }
+
+  const std::string expected_text = "Info:    " + text;
+  const std::string result = getTextFromLogFile();
+
+  // Just checking that expected text is in the file, not checking full log statement.
+  EXPECT_NE(result.find(expected_text), result.npos)
+    << "Log file did not contain expected text, instead it contained:\n\n: " << result;
 }
