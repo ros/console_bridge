@@ -12,6 +12,6 @@ jobs:
     - name: Install base dependencies
       run: |
         sudo apt update;
-        sudo apt -y install doxygen
+        sudo apt -y install doxygen graphviz
     - name: doxygen Doxyfile
       run: doxygen Doxyfile
