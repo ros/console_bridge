@@ -1,6 +1,6 @@
 This document is a declaration of software quality for the `libconsole-bridge-dev` ROS external dependency, based on the guidelines in [REP-2004](https://www.ros.org/reps/rep-2004.html).
 
-# `libconsole-bridge-dev` Quality Declaration
+# libconsole-bridge-dev Quality Declaration
 
 The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 2** category.
 
