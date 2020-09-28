@@ -2,7 +2,7 @@ This document is a declaration of software quality for the `libconsole-bridge-de
 
 # libconsole-bridge-dev Quality Declaration
 
-The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 2** category.
+The ROS external dependency `libconsole-bridge-dev` claims to be in the **Quality Level 1** category.
 
 Below are the rationales, notes, and caveats for this claim, organized by each requirement listed in the [Package Quality Categories in REP-2004](https://index.ros.org/doc/ros2/Contributing/Developer-Guide/#package-quality-categories) of the ROS2 developer guide.
 
@@ -108,7 +108,9 @@ Current test results are shown here:
 
 ### Performance [4.iv]
 
-`libconsole-bridge-dev` does not provide performance testing.
+The performance tests of this package are located in the [vendored library](https://github.com/ros2/console_bridge_vendor/tree/master/test/benchmark). The most recent test results can be found [here](http://build.ros2.org/view/Rci/job/Rci__benchmark_ubuntu_focal_amd64/BenchmarkTable/).
+
+`libconsole-bridge-dev` doe s not provide performance testing.
 
 ### Linters and Static Analysis [4.v]
 
