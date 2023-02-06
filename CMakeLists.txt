@@ -107,14 +107,12 @@ install(FILES
         "${CMAKE_BINARY_DIR}/${cmake_conf_version_file}"
   DESTINATION ${CMAKE_CONFIG_INSTALL_DIR} COMPONENT cmake)
 
-if (NOT MSVC)
-  set(PKG_DESC "Console Bridge")
-  set(PKG_CB_LIBS "-l${PROJECT_NAME}")
-  set(pkg_conf_file "console_bridge.pc")
-  configure_file("${pkg_conf_file}.in" "${CMAKE_BINARY_DIR}/${pkg_conf_file}" @ONLY)
-  install(FILES "${CMAKE_BINARY_DIR}/${pkg_conf_file}"
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/ COMPONENT pkgconfig)
-endif()
+set(PKG_DESC "Console Bridge")
+set(PKG_CB_LIBS "-l${PROJECT_NAME}")
+set(pkg_conf_file "console_bridge.pc")
+configure_file("${pkg_conf_file}.in" "${CMAKE_BINARY_DIR}/${pkg_conf_file}" @ONLY)
+install(FILES "${CMAKE_BINARY_DIR}/${pkg_conf_file}"
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/ COMPONENT pkgconfig)
 
 SET_DIRECTORY_PROPERTIES(PROPERTIES
   ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_BINARY_DIR}/console_bridge-config.cmake
