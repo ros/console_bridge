@@ -77,6 +77,7 @@ if(WGET_EXE)
                    "--counting=detailed"
                    "--extensions=cpp,h"
                    "--linelength=100"
+                   "--repository=${PROJECT_SOURCE_DIR}"
                    "--filter=-build/c++11,-runtime/references,-whitespace/braces,-whitespace/indent,-whitespace/parens,-whitespace/semicolon"
            "${PROJECT_SOURCE_DIR}/include/console_bridge/console.h"
            "${PROJECT_SOURCE_DIR}/src/console.cpp"
