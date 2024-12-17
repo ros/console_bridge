@@ -107,6 +107,8 @@ install(FILES
         "${CMAKE_BINARY_DIR}/${cmake_conf_version_file}"
   DESTINATION ${CMAKE_CONFIG_INSTALL_DIR} COMPONENT cmake)
 
+string(REGEX REPLACE "[^/]+" ".." RELATIVE_PATH_LIBDIR_TO_PREFIX "${CMAKE_INSTALL_LIBDIR}")
+
 set(PKG_DESC "Console Bridge")
 set(PKG_CB_LIBS "-l${PROJECT_NAME}")
 set(pkg_conf_file "console_bridge.pc")
