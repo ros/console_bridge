@@ -73,6 +73,21 @@ static DefaultOutputHandler* getDOH(void)
     return &DOH;
 }
 
+namespace
+{
+// Initialize logging storage before dependent shared-library/application statics
+// so their destructors can still log during process shutdown.
+struct InitProxy
+{
+    InitProxy()
+    {
+        (void)getDOH();
+    }
+};
+
+InitProxy init_proxy;
+}  // namespace
+
 #define USE_DOH                                                                \
     DefaultOutputHandler *doh = getDOH();                                      \
     std::lock_guard<std::mutex> lock_guard(doh->lock_)
