@@ -88,3 +88,12 @@ if(WGET_EXE)
 else()
   message(WARNING "wget not found. Linters will not be executed")
 endif()
+
+# Exercise logging from an application static destructor after main returns.
+# Shared-library initialization must keep the logger alive until then.
+if(BUILD_SHARED_LIBS)
+  add_executable(shutdown_logging_TEST shutdown_logging_TEST.cc)
+  target_link_libraries(shutdown_logging_TEST console_bridge)
+  add_test(NAME shutdown_logging_TEST COMMAND shutdown_logging_TEST)
+  set_tests_properties(shutdown_logging_TEST PROPERTIES TIMEOUT 10)
+endif()
